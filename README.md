@@ -29,7 +29,6 @@ The tools used are listed under [Tools and attribution](#tools-and-attribution).
 └── models/project_x                    # One folder per trained model
     └── lstm/                  # Example
         ├── README.md          # Short model card: setup, hyperparameters, results, W&B run
-        ├── lstm.ipynb         # is a frozen snapshot of the notebook that produced the stored weights
         └── weights/           # Stored weights (not tracked in git, see below)
 ```
 
@@ -79,9 +78,25 @@ git clone <https://github.com/<user>/<repo>>
 cd <repo>
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-wandb login
+cp .env.example .env   # then fill in WANDB_API_KEY
 jupyter lab
 ```
+
+### Environment variables
+
+Credentials and host settings are read from `.env` in the project root. The file is
+ignored by git; `.env.example` documents the variables and their defaults.
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `WANDB_API_KEY` | – | W&B API key, see `<https://wandb.ai/authorize>` (or the `/authorize` page of your host). The only value without a default. |
+| `WANDB_BASE_URL` | `https://api.wandb.ai` | W&B host. Change it when logging to a self-hosted / CoreWeave instance. |
+| `WANDB_ENTITY` | `cmedi32` | W&B user or team the runs belong to. |
+| `WANDB_PROJECT` | `nlp-project-01-abductive-reasoning` | W&B project all runs are logged to. |
+| `HF_TOKEN` | – | Optional, only for higher Hugging Face rate limits or private datasets. |
+
+Variables that are already set in the shell take precedence over `.env`, so a machine
+where `wandb login` was already run works without one.
 
 ## Reproducing results
 
@@ -95,3 +110,5 @@ jupyter lab
 - **Prior work and external code/models:** `No AI/ML Specific Course Work at all`
 
 ## References
+
+- Everything under class_solution belongs to hslu and the lecturer and is only present in this repo to guide coding agents NLP Class ref: https://elearning.hslu.ch/ilias/ilias.php?baseClass=ilrepositorygui&cmdNode=yb:n6&cmdClass=ilobjcoursegui&ref_id=7206312&item_ref_id=0

@@ -5,3 +5,6 @@ weights/
 *.ckpt
 wandb/
 .venv/
+
+# Local environment / secrets
+.env

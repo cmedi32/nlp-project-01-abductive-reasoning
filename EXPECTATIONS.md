@@ -27,7 +27,22 @@ I will try to do it all on my workstation - running an older nvidia architecture
 
 ### Variations of the solutions
 
-- BASIC simple word to wec, representation, regression expectations are very low, baiscally fifty fifty eg. invalidating the models existence
-- MEDIUM Fast Text skip gram embedding, TF-IDF, MLP
-
 whatever comes next, i will experiment around with whats documented and see how far i get with the results
+
+1. simple preprocessing, simple w2v with LogReg and meaning the result vectors - just to build the simplest model possible end to end i expected nothing eg. worst than just taking the mean or using a random classification.
+
+2. same preprocessing, simple w2v, same lookup same logic but now with an actual multi layer model (MLP), i want to try appying and experimenting with the learning rate and log it all to weights and biases i expect to get up to maybe 70% compared to the fifty fifty before.
+
+3. i wan't to try glove word embedding, compare the OOV tokens to w2v and see what works better also weighting better using tfidf -  i expect a small upstep.. maybe 75%. From variant 2 i learned that simply averaging the vectors and mean them into one eg h1, h2, r1, r2 losses to much information. the loss function stops after very few iterrations already. I also found out in ai research that the ceiling for non recurrent models is much lower.
+
+4. Try using tfidf instead of simple concatenation - this is what i think will get the maximum of maybe 52-53%, i don't think there is any more to do without recurrent networks
+
+## Using embeddings with RNNs - recurrent implementations
+
+ROADMAP (first draft):
+
+1	LSTM, unidirectional, 1 layer, last hidden state	RNN 50–58, Adv 16
+2	LSTM → GRU	RNN 62–66
+3	Unidirectional → Bidirectional	Adv 8–14
+4	1 layer → 2 layers	RNN 40
+5	Last hidden state → Attention pooling	Adv 29–37

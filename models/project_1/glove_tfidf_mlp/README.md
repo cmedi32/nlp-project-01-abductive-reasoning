@@ -9,7 +9,6 @@ Static GloVe embeddings, combined per sentence as a TF-IDF weighted mean, the fo
 | GitHub reference | https://github.com/cmedi32/nlp-project-01-abductive-reasoning/tree/main/models/project_1/glove_tfidf_mlp |
 | Weights & Biases profile | https://wandb.ai/cmedi32 |
 | Weights & Biases run / reference | https://wandb.ai/cmedi32-hochschule-luzern/nlp-project-01-abductive-reasoning/runs/p8h4wp5i (run `glove-tfidf-mlp`, model artifact `glove-tfidf-mlp:v2`, alias `best`) |
-| Previous run without dropout | https://wandb.ai/cmedi32-hochschule-luzern/nlp-project-01-abductive-reasoning/runs/negievyi (`glove-tfidf-mlp:v1`) |
 
 ## Contents
 
@@ -33,55 +32,7 @@ Static GloVe embeddings, combined per sentence as a TF-IDF weighted mean, the fo
   - `sentence_weighting = "none"` in the config switches back to the plain mean (run `glove-mean-mlp`) for the ablation
 - **Architecture:** LightningModule `MLP`: `Dropout(0.1) → Linear(1200, 256) → ReLU → Dropout(0.1) → Linear(256, 2)`, 307,970 trainable parameters (all in the MLP, dropout has none), `CrossEntropyLoss` on the two logits
 - **Config:** `hidden_dim: 256`, `dropout: 0.1`, `learning_rate: 1e-3`, `weight_decay: 0.0`, `gradient_clip_val: 0.0`, `batch_size: 64`, `max_epochs: 100`, `patience: 5`, `seed: 42`
-- **Training:** AdamW with weight decay 0 (identical to Adam), learning rate `1e-3`, no gradient clipping, batch size 64 (train shuffled), max 100 epochs, early stopping on `loss/valid` with patience 5, best checkpoint by `loss/valid`, seed 42. Stopped after 9 epochs (2,367 steps), best epoch 3 (0-based). ~77 s on an RTX 2070 SUPER
-
-## Results
-
-| Split | Accuracy | Loss | Majority baseline |
-|---|---|---|---|
-| Train (last epoch) | 82.98% | 0.384 | — |
-| Validation | 59.60% | 0.6521 | 50.80% |
-| Test | **52.09%** | 0.7559 | 50.98% |
-
-Skill over the majority baseline, `(accuracy − baseline) / (1 − baseline)`: validation 0.18, test 0.02.
-Pseudo-R², `1 − loss / ln 2`: validation 0.06, test −0.09.
-
-Effect of dropout, same code and seed (runs `negievyi` and `p8h4wp5i`):
-
-| Dropout | Train acc (last epoch) | Valid acc | Valid loss | Test acc | Test loss |
-|---|---|---|---|---|---|
-| 0.0 | 92.27% | 62.20% | 0.6443 | 51.96% | 0.8015 |
-| **0.1** | 82.98% | 59.60% | 0.6521 | 52.09% | 0.7559 |
-
-Ablation of the sentence vector, same code and seed, before dropout was added (the `glove-mean-mlp` run is not in the W&B project):
-
-| Sentence vector | Valid acc | Test acc | Test loss |
-|---|---|---|---|
-| Plain mean (`glove-mean-mlp`) | 60.80% | 51.11% | 0.84 |
-| **TF-IDF weighted mean** | 62.20% | 51.96% | 0.80 |
-
-Comparison on the same splits (single seed each, test has 1,532 examples, so ±2.5 percentage points (95%) of sampling error):
-
-| Model | Valid acc | Test acc | Test loss |
-|---|---|---|---|
-| `w2v_mean_logreg` | 52.70% | 51.57% | — |
-| `w2v_mean_mlp` | 50.80% | 50.46% | 0.6927 |
-| `glove_concatenate_small_mlp` | 61.70% | 50.98% | 0.8308 |
-| `glove_concatenate_bigger_mlp` | 59.80% | 51.70% | 0.7795 |
-| **`glove_tfidf_mlp`** (final static model) | 59.60% | 52.09% | 0.7559 |
-| `tfidf_concatenate_small_mlp` | 57.40% | 51.63% | 0.7077 |
-| `tfidf_concatenate_mlp` | 57.60% | 50.46% | 0.7046 |
-| `glove_concatenate_rnn` | 61.80% | 51.37% | 0.8940 |
-| `glove_concatenate_gru_unidirectional` | 64.30% | 50.98% | 0.7968 |
-| `glove_concatenate_gru_bidirectional` | 65.80% | 51.57% | 0.7861 |
-| `glove_concatenate_lstm_unidirectional` | 64.70% | 50.59% | 0.8101 |
-| `glove_concatenate_lstm_bidirectional` | 62.80% | 51.70% | 0.8616 |
-| `glove_lstm_bidirectional_improved` (final RNN model) | 69.80% | 51.83% | 0.8854 |
-| Majority baseline | 50.80% | 50.98% | — |
-
-The shortcut rules without any model are the same as in `glove_concatenate_bigger_mlp` (word overlap with O1 and O2: 63.5% validation, 51.9% test; shorter hypothesis: 57.1% validation, 49.9% test).
-
-Expectation (see `EXPECTATIONS.md`, variant 3, "weighting better using tfidf"): ~75%. Validation 59.60%, test 52.09% — not reached.
+- **Training:** AdamW with weight decay 0 (identical to Adam), learning rate `1e-3`, no gradient clipping, batch size 64 (train shuffled), max 100 epochs, early stopping on `loss/valid` with patience 5, best checkpoint by `loss/valid`, seed 42
 
 ## Hyperparameter sweep
 
@@ -120,24 +71,8 @@ with torch.no_grad():
 
 ## Notes
 
-- **Best static model on test, but inside the noise.** 52.09% is the highest test accuracy of all
-  static and recurrent runs, yet every test difference between the models is smaller than the
-  ±2.5 point sampling error. On validation it is third of the static models.
-- **Dropout 0.1 trades validation accuracy for calibration.** Against the run without dropout,
-  train accuracy at the last epoch drops from 92.27% to 82.98%, the test loss from 0.8015 to 0.7559,
-  validation accuracy falls 2.6 points and test accuracy moves +0.13 points. Both accuracy changes are
-  inside the noise (±3.1 points on validation, ±2.5 on test).
-- **TF-IDF does not hurt and shows no measurable effect on test.** +1.4 points on validation and
-  +0.85 points on test against the plain mean (without dropout). Weighting content words makes the
-  topic-overlap cue clearer; that cue works on validation and not on test (see
-  `glove_concatenate_bigger_mlp`, Notes).
-- **The test loss of 0.7559 is still worse than guessing** (ln 2 = 0.6931), pseudo-R² −0.09, but the
-  lowest test loss of all GloVe runs.
 - **Word order within a sentence is still ignored.** Only the order of the four sentences matters.
 - **Out of vocabulary:** identical to `glove_concatenate_bigger_mlp` (0.17% of all tokens, 850 types,
   7 empty sentences).
 - **No logging bug here.** The notebook reads `early_stopping.stopped_epoch` right after `fit`, so the
-  W&B summary shows the real value 8.
-- **Single seed.** Open next steps: 3–5 seeds per variant (mean ± std), accuracy on the validation
-  examples where the word-overlap rule is wrong or tied, swap augmentation (O1, O2, H2, H1, 1 − y),
-  label smoothing against the overconfidence.
+  W&B summary shows the real value.

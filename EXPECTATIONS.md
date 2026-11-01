@@ -39,10 +39,19 @@ whatever comes next, i will experiment around with whats documented and see how 
 
 ## Using embeddings with RNNs - recurrent implementations
 
+i expect more due to the attention, but since the scores of the static solution where so low i adjusted my expectations a little bit. 
+
+I would be happy reaching about 60% accuracy on meassured by correctness. for bidirectionality in lstm and GRU i do expect close to 70% accuracy after fine tunning all the hyperparameters.
+
 ROADMAP (first draft):
 
 1	LSTM, unidirectional, 1 layer, last hidden state	RNN 50–58, Adv 16
 2	LSTM → GRU	RNN 62–66
 3	Unidirectional → Bidirectional	Adv 8–14
 4	1 layer → 2 layers	RNN 40
-5	Last hidden state → Attention pooling	Adv 29–37
+5	Last hidden state → Attention pooling	Adv 29–37 !! more hope about that
+
+the first few rnn runs where already very satisfying performing above 60% with simple untuned ai generated torch and lightning classes. i will try to build on that an fine tune it
+
+furthermore i started some agentic experiments with fastText, glove and w2v i wan't to find optimal preprocessing and lookup to achive machimum coverage, minmimal OOV and other unecessary lossses. since what performs best can be used for the final rnn and static implementation. the result of that needs to be part of the preprocessing presentation part.
+

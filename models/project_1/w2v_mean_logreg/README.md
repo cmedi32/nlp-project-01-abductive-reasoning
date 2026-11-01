@@ -6,9 +6,9 @@ Static word embeddings, mean-pooled per sentence, with a logistic regression cla
 
 | Field | Value |
 |---|---|
-| GitHub reference | `<https://github.com/<user>/<repo>/tree/main/models/project_1/w2v_mean_logreg>` |
-| Weights & Biases profile | `<https://wandb.ai/<username>>` |
-| Weights & Biases run / reference | `<https://wandb.ai/<team>/<project>/runs/<run-id>>` |
+| GitHub reference | https://github.com/cmedi32/nlp-project-01-abductive-reasoning/tree/main/models/project_1/w2v_mean_logreg |
+| Weights & Biases profile | https://wandb.ai/cmedi32 |
+| Weights & Biases run / reference | https://wandb.ai/cmedi32-hochschule-luzern/nlp-project-01-abductive-reasoning/runs/0it7ncwf (run `w2v-mean-logreg`, no model artifact logged) |
 
 ## Contents
 

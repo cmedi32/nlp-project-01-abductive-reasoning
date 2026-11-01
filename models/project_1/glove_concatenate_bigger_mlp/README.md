@@ -77,7 +77,11 @@ with torch.no_grad():
   on validation and therefore favour the shortcut. Test is the number to report.
 - **The changes were not isolated.** GloVe, lowercasing, concatenation and the second hidden layer
   changed together. Only the concatenation can explain leaving ln 2, because the averaged input is
-  symmetric; how much GloVe or the extra layer contribute is unknown.
+  symmetric; how much GloVe or the extra layer contribute is unknown. `glove_concatenate_small_mlp`
+  later isolated the extra layer: the same setup with one hidden layer reached 61.70% validation
+  and 50.98% test, a difference inside the noise.
+- **Does not meet the project constraint** of a 2-layer classifier (3 linear layers here).
+  `glove_concatenate_small_mlp` and the final static model `glove_tfidf_mlp` use 2 layers.
 - **Word order within a sentence is still ignored.** Each sentence is still a mean, so "He was
   never lost" and "He was lost" get nearly the same vector. Only the order of the four sentences
   matters.

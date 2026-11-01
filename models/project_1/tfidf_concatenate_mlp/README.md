@@ -42,8 +42,12 @@ Comparison on the same splits (single seed each, test has 1,532 examples, so ±1
 |---|---|---|---|
 | `w2v_mean_logreg` | 52.70% | 51.57% | — |
 | `w2v_mean_mlp` | 50.80% | 50.46% | 0.6927 |
+| `glove_concatenate_small_mlp` | 61.70% | 50.98% | 0.8308 |
 | `glove_concatenate_bigger_mlp` | 59.80% | 51.70% | 0.7795 |
+| `glove_tfidf_mlp` | 62.20% | 51.96% | 0.8015 |
+| `tfidf_concatenate_small_mlp` | 57.40% | 51.63% | 0.7077 |
 | **`tfidf_concatenate_mlp`** | 57.60% | 50.46% | 0.7046 |
+| `glove_concatenate_rnn` | 61.80% | 51.37% | 0.8940 |
 | Majority baseline | 50.80% | 50.98% | — |
 
 The shortcut rules without any model are the same as in `glove_concatenate_bigger_mlp` (word overlap with O1 and O2: 63.5% validation, 51.9% test; shorter hypothesis: 57.1% validation, 49.9% test).

@@ -56,20 +56,12 @@ One subfolder per trained model. Each subfolder contains:
 
 Each example has two observations, two hypotheses and a label (1 or 2) for the more plausible hypothesis.
 
-**Split usage:** train for fitting, validation for model selection and hyperparameter tuning, test only for the final comparison. Never tune on the test set.
-
 ## Projects
 
 | Project | Methods | Submission |
 |---|---|---|
 | 1 | Word embeddings, word embeddings with RNN | Week 8 (Ilias) |
 | 2 | Transformers: randomly initialized, pretrained, LLM | Week 14 (Ilias) |
-
-## Deliverables per project
-
-| Project | Repo Link | Experiment Tracking Link | Presentation Slides as PDF |
-|---|---|---|---|
-| 1 | SS | Tracking Link | SwissTransfer Link |
 
 ## Setup
 

@@ -9,8 +9,10 @@ import nltk
 # @todo good reasoning i need this base approach to reasoning in all places
 
 # ~/nltk_data and are fetched at runtime. word_tokenize first splits the text into sentences
-# with the Punkt model ("punkt_tab"), so without this line it raises a LookupError.
-# i don't know why exactly yet - but the coding agent suggests it
+# with the Punkt model ("punkt_tab"), so without this line it raises a LookupError. 
+
+# punctuation not needed, case sensitivity as in model as discussed in the project discussions
+
 nltk.download("punkt_tab", quiet=True)
 
 CONFIG = {
@@ -19,7 +21,7 @@ CONFIG = {
     "remove_punctuation": True, # as discussed in project discussions
     "remove_stopwords": False, # as discussed in project discussion
     "normalization": "none",  # no stemming, no lemmatization according to word2vec
-    "truncation": "none",
+    "truncation": "none", # won't make a difference at that size i am pretty sure
 }
 
 

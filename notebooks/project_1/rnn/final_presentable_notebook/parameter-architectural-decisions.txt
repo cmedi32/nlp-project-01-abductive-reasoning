@@ -6,15 +6,13 @@ Direction: unidirectional vs bidirectional
 Number of layers: 1, 2, 3
 Hidden state size: 128, 256, 512
 
-How to pool the sequence: last hidden state vs attention vs mean of all hidden states !
+ ! BIG POINT.. as in the README for the final RNN STATE
 
-How to encode the inputs: separate encoding vs concatenated sequence with SEP tokens !
-
+How to pool the sequence: last hidden state vs attention vs mean of all hidden states
+How to encode the inputs: separate encoding vs concatenated sequence with SEP tokens ! improvements needed in the preprocess step
 How to combine the encoded pieces: concat, element-wise difference, cosine similarity !
 
-Classifier head on top: single linear layer vs MLP with ReLU !
-
-Hyperparameters (values you tune without changing architecture):
+Hyperparameters (values you tune without changing architecture): For both approach i wan't to configure the autotuning
 
 Learning rate
 Batch size
@@ -24,5 +22,4 @@ Gradient clipping threshold
 Optimizer choice (Adam, AdamW, SGD)
 Weight decay (L2 regularization)
 Hidden dimension
-Embedding dimension (if training your own)
 Early stopping patience

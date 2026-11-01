@@ -3,12 +3,20 @@ import torch
 from scipy import sparse
 from torch.utils.data import DataLoader, Dataset, TensorDataset
 
-# @todo this has to be optimized or at least it has to be documented how its optimized with badge sizing and concurrency, its the one lecture i missed
 class SparseDataset(Dataset):
-    """Serves (features, label) pairs from a sparse tf-idf matrix.
+    """Serves (features, label) pairs from a sparse tf-idf matrix, a row is only made dense when the DataLoader asks for it.
 
-    The full dense matrix would be examples x (4 * vocabulary) floats and not fit in memory,
-    so a row is only densified when the DataLoader asks for it.
+    Why sparse: a tf-idf row has one column per vocabulary word and sentence (4 * 16,189 = 64,756), but one
+    example only contains ~34 words, so 99.95% of its values are 0.
+    A csr matrix stores only the non-zero values and their columns, e.g. row 0 ("a baby panda was lost ..."):
+        data    = [0.14, 0.40, 0.21, 0.37, ...]   tf-idf weights of 'a', 'baby', 'in', 'lost'
+        indices = [227,  1206, 7159, 8549, ...]   their columns, every other column is 0
+    X_train takes 6.8 MB as csr instead of 4.35 GB dense as float32 (8.70 GB as float64, what tf-idf returns).
+
+    GloVe features don't need this: all of their values are non-zero, so they stay a dense TensorDataset.
+    The model still gets dense rows: one batch of 64 is 16.6 MB, only 2,108 of its 4.1 million values are non-zero.
+
+    The memory savings are thanks to the coding agent, i myself wouldn't think that far.
     """
 
     def __init__(self, X, y):
@@ -20,17 +28,12 @@ class SparseDataset(Dataset):
         return self.X.shape[0]
 
     def __getitem__(self, index):
-        # sparse row -> dense 1d float tensor of size 4 * vocabulary
+        # one csr row -> dense float32 tensor with all 64,756 values (zeros filled in), only for this one example
         x = torch.tensor(self.X[index].toarray().ravel(), dtype=torch.float32)
         return x, self.y[index]
 
 
 def make_loader(X, y, batch_size, shuffle):
-    """Dense numpy matrix -> TensorDataset, sparse scipy matrix -> SparseDataset. Only the training data is shuffled.
-
-    DataLoader draws batch_size indices, looks up each example and stacks the results into
-    x: (batch_size, input_dim) and y: (batch_size,).
-    """
     if sparse.issparse(X):
         dataset = SparseDataset(X, y)
     else:

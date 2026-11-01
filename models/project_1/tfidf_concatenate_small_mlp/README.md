@@ -14,7 +14,7 @@ Sparse tf-idf vectors per sentence (sklearn `TfidfVectorizer`), the four sentenc
 
 | File | Description |
 |---|---|
-| `notebooks/project_1/static/tfidf_concatenate_small_mlp.ipynb` | Training and evaluation notebook (lives in the notebooks folder, no frozen copy here) |
+| `notebooks/project_1/static/tfidf_concatenate_small_mlp.ipynb` | Training and evaluation notebook (lives in the notebooks folder, no frozen copy here; preprocessing, features, loaders and training come from `notebooks/project_1/pipeline/`, the model class is defined in the notebook) |
 | `weights/best-epoch=0.ckpt` | Lightning checkpoint of the best epoch by `loss/valid` (not tracked in git, uploaded to W&B as `tfidf-concatenate-small-mlp:best`) |
 
 ## Setup
@@ -46,6 +46,10 @@ Comparison on the same splits (single seed each, test has 1,532 examples, so ±2
 | **`tfidf_concatenate_small_mlp`** | 57.40% | 51.63% | 0.7077 |
 | `tfidf_concatenate_mlp` | 57.60% | 50.46% | 0.7046 |
 | `glove_concatenate_rnn` | 61.80% | 51.37% | 0.8940 |
+| `glove_concatenate_gru_unidirectional` | 64.30% | 50.98% | 0.7968 |
+| `glove_concatenate_gru_bidirectional` | 65.80% | 51.57% | 0.7861 |
+| `glove_concatenate_lstm_unidirectional` | 64.70% | 50.59% | 0.8101 |
+| `glove_concatenate_lstm_bidirectional` | 62.80% | 51.70% | 0.8616 |
 | Majority baseline | 50.80% | 50.98% | — |
 
 Expectation (see `EXPECTATIONS.md`, variant 4): 52–53%. Result 51.63%, just below the estimate.

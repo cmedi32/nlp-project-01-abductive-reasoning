@@ -16,13 +16,18 @@ def weights_dir(run_name):
     return MODELS_DIR / run_name.replace("-", "_") / "weights"
 
 
-def fit(model, train_loader, valid_loader, checkpoint_dir, max_epochs, patience):
-    """Fits the model and returns the trainer, its callbacks: trainer.early_stopping_callback, trainer.checkpoint_callback."""
+def fit(model, train_loader, valid_loader, checkpoint_dir, max_epochs, patience, gradient_clip_val=None):
+    """Fits the model and returns the trainer, its callbacks: trainer.early_stopping_callback, trainer.checkpoint_callback.
+
+    gradient_clip_val: max L2 norm of all gradients together per step, longer gradients are scaled down to it.
+    None or 0.0 = no clipping (Lightning skips values <= 0), the notebooks without it are unchanged.
+    """
     early_stopping = EarlyStopping(monitor="loss/valid", mode="min", patience=patience, verbose=True) # @todo check against documentation and understand it
     checkpoint = ModelCheckpoint(dirpath=checkpoint_dir, filename="best-{epoch}", monitor="loss/valid", mode="min", save_top_k=1) # @todo same here but this is largely library oriented
 
     trainer = L.Trainer( # train
         max_epochs=max_epochs,
+        gradient_clip_val=gradient_clip_val,  # clipping by norm, Lightning's default algorithm
         accelerator="auto",
         devices=1,
         logger=WandbLogger(),  # reuses the run from wandb.init

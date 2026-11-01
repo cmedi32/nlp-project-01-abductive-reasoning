@@ -50,7 +50,7 @@ class MeanEmbedder:
         if not vectors:
             self.stats["empty_sentences"] += 1
             return np.zeros(self.wv.vector_size)
-        return np.mean(vectors, axis=0) # @todo tf idf might improve learnability here too
+        return np.mean(vectors, axis=0)
 
     def summary(self):
         """OOV counters of every sentence embedded so far, keys as logged to W&B."""
@@ -64,22 +64,35 @@ class MeanEmbedder:
 
 
 def combine_mean(vectors):
-    """O1, O2, H1, H2 sentence vectors -> their mean (300 dims), the order of the sentences is lost."""
+    """O1, O2, H1, H2 sentence vectors -> their mean (300 dims), the order of the sentences is lost. used for early models."""
     return np.mean(vectors, axis=0)
 
 
 def combine_concat(vectors):
-    """O1, O2, H1, H2 sentence vectors -> glued in this fixed order (4 * 300 dims), swapping H1 and H2 changes the input."""
-    return np.concatenate(vectors) # @todo apply tfidf with embeddings, and combine the information
+    """O1, O2, H1, H2 sentence vectors -> glued in this fixed order (4 * 300 dims), swapping H1 and H2 changes the input, order contains all information."""
+    return np.concatenate(vectors)
 
+def combine_concat_candidate_framing(vectors)
+    """seperate canidates for improved reasoning in bidirectional rnns."""
+    # @todo candidate framing [O1] <sep> [h1] <sep> [O2]
+
+
+def concat_add_interaction_features(vectors)
+    """add some sort of salt and pepper."""
 
 def embed_example(example, embed, combine):
     vectors = [embed(example[field]) for field in TEXT_FIELDS]
     return combine(vectors)
 
-
+# build a feature from tokens
 def build_features(token_split, embed, combine):
     """Feature matrix X (examples, dims) and targets y of a tokenized split."""
-    X = np.stack([embed_example(example, embed, combine) for example in token_split])
+    
+    # one feature vector per example: embed its four sentences, then combine them (mean or concat)
+    rows = []
+    for example in token_split:
+        rows.append(embed_example(example, embed, combine))
+
+    X = np.stack(rows)  # list of vectors -> matrix (examples, dims)
     y = np.array(token_split["target"])
     return X, y

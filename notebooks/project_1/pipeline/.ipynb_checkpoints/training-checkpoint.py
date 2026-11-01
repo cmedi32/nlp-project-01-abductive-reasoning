@@ -23,7 +23,7 @@ def fit(model, train_loader, valid_loader, checkpoint_dir, max_epochs, patience)
 
     trainer = L.Trainer( # train
         max_epochs=max_epochs,
-        accelerator="auto",
+        accelerator="auto", 
         devices=1,
         logger=WandbLogger(),  # reuses the run from wandb.init
         callbacks=[early_stopping, checkpoint], # ensure it stops when performance degrades

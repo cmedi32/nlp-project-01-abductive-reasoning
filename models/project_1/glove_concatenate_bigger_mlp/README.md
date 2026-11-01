@@ -14,7 +14,7 @@ Static GloVe embeddings, mean-pooled per sentence, the four sentence vectors con
 
 | File | Description |
 |---|---|
-| `glove_concatenate_bigger_mlp.ipynb` | Training and evaluation notebook — @todo frozen snapshot of `notebooks/project_1/static/glove_concatenate_bigger_mlp.ipynb` |
+| `glove_concatenate_bigger_mlp.ipynb` | Training and evaluation notebook — @todo frozen snapshot of `notebooks/project_1/static/glove_concatenate_bigger_mlp.ipynb`; preprocessing, features, loaders and training come from `notebooks/project_1/pipeline/`, the model class is defined in the notebook |
 | `weights/best-epoch=3.ckpt` | Lightning checkpoint of the best epoch by `loss/valid` (not tracked in git, uploaded to W&B as `glove-concatenate-bigger-mlp:best`) |
 
 ## Setup

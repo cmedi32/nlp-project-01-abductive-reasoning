@@ -1,0 +1,20 @@
+program: ../../sweep/sweep_run.py
+command:
+  - ${env}
+  - python3
+  - ${program}
+  - glove_lstm_bidirectional_improved.ipynb
+entity: cmedi32-hochschule-luzern
+project: nlp-project-01-abductive-reasoning
+name: glove-lstm-bidirectional-improved-grid
+method: grid
+metric:
+  name: accuracy/valid  # the plan's val_accuracy: validation accuracy of the best checkpoint (lowest loss/valid) of a run
+  goal: maximize
+parameters:  # 3 x 2 x 2 = 12 runs
+  learning_rate:
+    values: [0.001, 0.0001, 0.00001]
+  rnn_hidden_dim:
+    values: [128, 256]
+  dropout:
+    values: [0.1, 0.3]

@@ -1,36 +1,35 @@
-# Python-Abhängigkeiten der Notebooks unter class_solution/
-# Erzeugt aus den dortigen pip-Installationen und Imports.
+# Python dependencies of the project notebooks (notebooks/project_1/) and of class_solution/.
 
-# Deep Learning / Modelle
+# Deep learning / models
 torch
 transformers
 lightning
 
-# Daten & Evaluation
+# Data & evaluation
 datasets
 evaluate
 scipy
 scikit-learn
 numpy
 
-# Klassisches NLP
+# Classic NLP
 nltk
 spacy
 gensim
 
-# Experiment Tracking
+# Experiment tracking (runs and the W&B sweeps of the final notebooks)
 wandb
 
-# Konfiguration (.env im Projekt-Root)
+# Configuration (.env in the project root)
 python-dotenv
 
-# Visualisierung
+# Visualisation
 matplotlib
 
-# Notebook-Umgebung
+# Notebook environment
 ipywidgets
 nbformat
 
-# Build-Tools (für spacy-Installation benötigt)
+# Build tools (needed for the spacy installation)
 setuptools
 wheel

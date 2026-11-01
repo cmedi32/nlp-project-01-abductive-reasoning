@@ -47,7 +47,7 @@ Comparison on the same splits (single seed each, test has 1,532 examples, so ±2
 | `w2v_mean_mlp` | 50.80% | 50.46% | 0.6927 |
 | `glove_concatenate_small_mlp` | 61.70% | 50.98% | 0.8308 |
 | `glove_concatenate_bigger_mlp` | 59.80% | 51.70% | 0.7795 |
-| `glove_tfidf_mlp` | 62.20% | 51.96% | 0.8015 |
+| `glove_tfidf_mlp` (final static model) | 59.60% | 52.09% | 0.7559 |
 | `tfidf_concatenate_small_mlp` | 57.40% | 51.63% | 0.7077 |
 | `tfidf_concatenate_mlp` | 57.60% | 50.46% | 0.7046 |
 | **`glove_concatenate_rnn`** | 61.80% | 51.37% | 0.8940 |
@@ -55,6 +55,7 @@ Comparison on the same splits (single seed each, test has 1,532 examples, so ±2
 | `glove_concatenate_gru_bidirectional` | 65.80% | 51.57% | 0.7861 |
 | `glove_concatenate_lstm_unidirectional` | 64.70% | 50.59% | 0.8101 |
 | `glove_concatenate_lstm_bidirectional` | 62.80% | 51.70% | 0.8616 |
+| `glove_lstm_bidirectional_improved` (final RNN model) | 69.80% | 51.83% | 0.8854 |
 | Majority baseline | 50.80% | 50.98% | — |
 
 The shortcut rules without any model are the same as in `glove_concatenate_bigger_mlp` (word overlap with O1 and O2: 63.5% validation, 51.9% test; shorter hypothesis: 57.1% validation, 49.9% test).
@@ -81,7 +82,7 @@ with torch.no_grad():
   sentences go through the same input weights (`300 × 256`), where the MLP has separate weights per
   slot (`1200 × 256`).
 - **Validation is on the level of the best static models, test is at chance.** 61.80% / 51.37%
-  against 62.20% / 51.96% for `glove_tfidf_mlp`. The same validation/test gap as in the static
+  against 59.60% / 52.09% for `glove_tfidf_mlp`. The same validation/test gap as in the static
   models (see `glove_concatenate_bigger_mlp`, Notes): the word-overlap shortcut holds on validation
   and not on test. Test is the number to report.
 - **Low validation loss, highest test loss.** 0.6335 on validation is the third lowest of all runs

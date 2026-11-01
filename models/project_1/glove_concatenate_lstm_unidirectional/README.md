@@ -61,7 +61,8 @@ Recurrent variants on the same splits (single seed each, test has 1,532 examples
 | `glove_concatenate_gru_bidirectional` | 8 | 65.80% | 0.6362 | 51.57% | 0.7861 |
 | **`glove_concatenate_lstm_unidirectional`** (lr `1e-4`) | 12 | 64.70% | 0.6407 | 50.59% | 0.8101 |
 | `glove_concatenate_lstm_bidirectional` | 10 | 62.80% | 0.6331 | 51.70% | 0.8616 |
-| `glove_tfidf_mlp` (best static model) | 9 | 62.20% | 0.6443 | 51.96% | 0.8015 |
+| `glove_lstm_bidirectional_improved` (final RNN model) | 9 | 69.80% | 0.5841 | 51.83% | 0.8854 |
+| `glove_tfidf_mlp` (final static model) | 9 | 59.60% | 0.6521 | 52.09% | 0.7559 |
 | Majority baseline | — | 50.80% | — | 50.98% | — |
 
 Expectation (see `EXPECTATIONS.md`, RNN roadmap step 1, `LSTM, unidirectional, 1 layer, last hidden state` — RNN 50–58, Adv 16). Overall target for the recurrent models: ~60%. Validation 64.70% is above the ~60% target, test 50.59% is not.
@@ -103,10 +104,11 @@ with torch.no_grad():
   in the notebook still belong to `cuballoa` (`1e-5`). Lowering the learning rate stretches training
   (87 epochs at `1e-5`); the three completed runs stay within 1.6 points on validation (63.10–64.70%)
   and 2.0 points on test (49.93–51.89%), and `1e-3` gave the best test accuracy of the four.
-- **Validation gain does not reach test.** The five recurrent runs in the table above land between 61.80% and 65.80% on
+- **Validation gain does not reach test.** The five `glove_concatenate_*` recurrent runs in the table above land between 61.80% and 65.80% on
   validation and between 50.59% and 51.70% on test, the same validation/test gap as in the static
   models (see `glove_concatenate_bigger_mlp`, Notes). Every test difference between them is smaller
-  than the ±2.5 point sampling error.
+  than the ±2.5 point sampling error. The final `glove_lstm_bidirectional_improved` widens the gap: 69.80% on
+  validation, 51.83% on test.
 - **Logging bug:** same as `glove_concatenate_rnn`. The W&B summary shows `early_stopping/stopped_epoch` = 0
   because `trainer.validate(ckpt_path="best")` restores the callback states from the best checkpoint.
   The real value is 11 (epochs 7–11 without improvement).

@@ -60,7 +60,8 @@ Recurrent variants on the same splits (single seed each, test has 1,532 examples
 | `glove_concatenate_gru_bidirectional` | 8 | 65.80% | 0.6362 | 51.57% | 0.7861 |
 | `glove_concatenate_lstm_unidirectional` (lr `1e-4`) | 12 | 64.70% | 0.6407 | 50.59% | 0.8101 |
 | **`glove_concatenate_lstm_bidirectional`** | 10 | 62.80% | 0.6331 | 51.70% | 0.8616 |
-| `glove_tfidf_mlp` (best static model) | 9 | 62.20% | 0.6443 | 51.96% | 0.8015 |
+| `glove_lstm_bidirectional_improved` (final RNN model) | 9 | 69.80% | 0.5841 | 51.83% | 0.8854 |
+| `glove_tfidf_mlp` (final static model) | 9 | 59.60% | 0.6521 | 52.09% | 0.7559 |
 | Majority baseline | — | 50.80% | — | 50.98% | — |
 
 Expectation (see `EXPECTATIONS.md`, RNN roadmap step 3, `Unidirectional → Bidirectional` — Adv 8–14). Overall target for the recurrent models: ~60%. Validation 62.80% is above the ~60% target, test 51.70% is not.
@@ -89,11 +90,13 @@ with torch.no_grad():
 - **Word order within a sentence is still ignored,** each time step is a mean sentence vector.
 - **Fits the training data hardest, best recurrent test accuracy.** 86.95% train accuracy in the
   last epoch, the most of all recurrent runs, and the highest test loss of the GRU/LSTM runs (0.8616).
-  Test 51.70% is the best of the current recurrent runs, 0.26 points below `glove_tfidf_mlp`.
-- **Validation gain does not reach test.** The five recurrent runs in the table above land between 61.80% and 65.80% on
+  Test 51.70% is the best of the five `glove_concatenate_*` recurrent runs, 0.39 points below
+  `glove_tfidf_mlp` (52.09%); the final `glove_lstm_bidirectional_improved` reaches 51.83%.
+- **Validation gain does not reach test.** The five `glove_concatenate_*` recurrent runs in the table above land between 61.80% and 65.80% on
   validation and between 50.59% and 51.70% on test, the same validation/test gap as in the static
   models (see `glove_concatenate_bigger_mlp`, Notes). Every test difference between them is smaller
-  than the ±2.5 point sampling error.
+  than the ±2.5 point sampling error. The final `glove_lstm_bidirectional_improved` widens the gap: 69.80% on
+  validation, 51.83% on test.
 - **Logging bug:** same as `glove_concatenate_rnn`. The W&B summary shows `early_stopping/stopped_epoch` = 0
   because `trainer.validate(ckpt_path="best")` restores the callback states from the best checkpoint.
   The real value is 9 (epochs 5–9 without improvement).

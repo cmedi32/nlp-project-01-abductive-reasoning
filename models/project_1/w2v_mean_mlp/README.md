@@ -14,7 +14,7 @@ Static word embeddings, mean-pooled per sentence and across the four fields, wit
 
 | File | Description |
 |---|---|
-| `w2v_mean_mlp.ipynb` | Training and evaluation notebook — @todo frozen snapshot of `notebooks/project_1/static/w2v_mean_mlp.ipynb`; preprocessing, features, loaders and training come from `notebooks/project_1/pipeline/`, the model class is defined in the notebook |
+| `notebooks/project_1/static/w2v_mean_mlp.ipynb` | Training and evaluation notebook (lives in the notebooks folder, no frozen copy here; preprocessing, features, loaders and training come from `notebooks/project_1/pipeline/`, the model class is defined in the notebook) |
 | `weights/best-epoch=3.ckpt` | Lightning checkpoint of the best epoch by `loss/valid` (not tracked in git, uploaded to W&B as `w2v-mean-mlp:best`) |
 
 ## Setup

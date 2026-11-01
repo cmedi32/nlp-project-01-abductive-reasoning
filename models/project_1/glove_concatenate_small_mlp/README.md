@@ -43,7 +43,7 @@ Comparison on the same splits (single seed each, test has 1,532 examples, so ±2
 | `w2v_mean_mlp` | 50.80% | 50.46% | 0.6927 |
 | **`glove_concatenate_small_mlp`** | 61.70% | 50.98% | 0.8308 |
 | `glove_concatenate_bigger_mlp` | 59.80% | 51.70% | 0.7795 |
-| `glove_tfidf_mlp` | 62.20% | 51.96% | 0.8015 |
+| `glove_tfidf_mlp` (final static model) | 59.60% | 52.09% | 0.7559 |
 | `tfidf_concatenate_small_mlp` | 57.40% | 51.63% | 0.7077 |
 | `tfidf_concatenate_mlp` | 57.60% | 50.46% | 0.7046 |
 | `glove_concatenate_rnn` | 61.80% | 51.37% | 0.8940 |
@@ -51,6 +51,7 @@ Comparison on the same splits (single seed each, test has 1,532 examples, so ±2
 | `glove_concatenate_gru_bidirectional` | 65.80% | 51.57% | 0.7861 |
 | `glove_concatenate_lstm_unidirectional` | 64.70% | 50.59% | 0.8101 |
 | `glove_concatenate_lstm_bidirectional` | 62.80% | 51.70% | 0.8616 |
+| `glove_lstm_bidirectional_improved` (final RNN model) | 69.80% | 51.83% | 0.8854 |
 | Majority baseline | 50.80% | 50.98% | — |
 
 The shortcut rules without any model are the same as in `glove_concatenate_bigger_mlp` (word overlap with O1 and O2: 63.5% validation, 51.9% test; shorter hypothesis: 57.1% validation, 49.9% test).
@@ -73,7 +74,7 @@ with torch.no_grad():
 
 - **Meets the project constraint** of a 2-layer classifier with a ReLU (`glove_concatenate_bigger_mlp`
   has 3 linear layers). It is the plain-mean baseline for `glove_tfidf_mlp`.
-- **Test accuracy equals the majority baseline** (781 of 1,532). Validation is the second best of
+- **Test accuracy equals the majority baseline** (781 of 1,532). Validation is the best of
   all static models, test is at chance — the same validation/test gap as in
   `glove_concatenate_bigger_mlp` (see Notes there): the model learns the word-overlap shortcut,
   which holds on validation and not on test.
@@ -81,7 +82,7 @@ with torch.no_grad():
   inside the sampling error. The bottleneck is the input, not the classifier.
 - **A rerun moves by about a point.** The same setup inside `glove_tfidf_mlp.ipynb` with
   `sentence_weighting = "none"` (run `glove-mean-mlp`) gave 60.80% validation and 51.11% test
-  (see `notebooks/project_1/static/final_presentable_notebook/LEARNINGS.md`).
+  (before dropout was added to that notebook; the run is not in the W&B project).
 - **The test loss of 0.8308 is worse than guessing** (ln 2 = 0.6931), pseudo-R² −0.20. Train
   accuracy reaches 81.72% while the best checkpoint is epoch 6.
 - **Out of vocabulary:** identical to `glove_concatenate_bigger_mlp` (0.17% of all tokens, 850 types,

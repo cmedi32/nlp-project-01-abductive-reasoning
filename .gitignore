@@ -9,3 +9,7 @@ wandb/
 # Local environment / secrets
 .env
 __pycache__/
+
+# Jupyter autosaves, local agent worktrees
+.ipynb_checkpoints/
+.claude/worktrees/

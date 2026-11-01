@@ -14,7 +14,7 @@ Static word embeddings, mean-pooled per sentence, with a logistic regression cla
 
 | File | Description |
 |---|---|
-| `w2v_mean_logreg.ipynb` | Training and evaluation notebook — @todo frozen snapshot of `notebooks/project_1/static/w2v_mean_logreg.ipynb`; preprocessing and features come from `notebooks/project_1/pipeline/`, the classifier is set up in the notebook |
+| `notebooks/project_1/static/w2v_mean_logreg.ipynb` | Training and evaluation notebook (lives in the notebooks folder, no frozen copy here; preprocessing and features come from `notebooks/project_1/pipeline/`, the classifier is set up in the notebook) |
 | `weights/logreg.joblib` | Trained classifier (not tracked in git) |
 
 ## Setup

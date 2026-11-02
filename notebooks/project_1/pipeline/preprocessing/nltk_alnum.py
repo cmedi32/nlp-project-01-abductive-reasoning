@@ -6,8 +6,6 @@ filtered:  ['He', 'was', 'reunited', 'with', 'his', 'parents', 'who', 'also', 'l
 """
 import nltk
 
-# @todo good reasoning i need this base approach to reasoning in all places
-
 # ~/nltk_data and are fetched at runtime. word_tokenize first splits the text into sentences
 # with the Punkt model ("punkt_tab"), so without this line it raises a LookupError. 
 

@@ -33,7 +33,7 @@ if "WANDB_SWEEP_ID" not in os.environ or len(sys.argv) != 2:
 NOTEBOOK = Path(sys.argv[1]).resolve()  # sweep.yaml passes the file name, the agent runs in the notebook's folder
 HERE = NOTEBOOK.parent
 PARAMETERS = list(yaml.safe_load((HERE / "sweep.yaml").read_text())["parameters"])  # config keys of the notebook
-SHORT = {"learning_rate": "lr", "hidden_dim": "h", "rnn_hidden_dim": "rnn", "dropout": "d"}  # for the run name
+SHORT = {"learning_rate": "lr", "hidden_dim": "h", "rnn_hidden_dim": "rnn", "dropout": "d", "sentence_weighting": "w"}  # for the run name
 
 # the agent passes the sweep values as a file path relative to its working directory, keep it valid after the chdir
 if "WANDB_SWEEP_PARAM_PATH" in os.environ:

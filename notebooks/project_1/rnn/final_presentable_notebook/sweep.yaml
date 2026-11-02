@@ -11,10 +11,12 @@ method: grid
 metric:
   name: accuracy/valid  # the plan's val_accuracy: validation accuracy of the best checkpoint (lowest loss/valid) of a run
   goal: maximize
-parameters:  # 3 x 2 x 2 = 12 runs
+parameters:  # 3 x 2 x 2 x 2 = 24 runs
   learning_rate:
     values: [0.001, 0.0001, 0.00001]
   rnn_hidden_dim:
     values: [128, 256]
   dropout:
     values: [0.1, 0.3]
+  sentence_weighting:
+    values: [tfidf, none] # tf-idf weighted mean vs. plain mean of the word vectors

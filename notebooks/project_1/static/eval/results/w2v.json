@@ -1,8 +1,8 @@
 {
  "model": "word2vec-google-news-300",
  "metrics": {
-  "oov/tokens": 670395,
-  "oov/types": 19041,
+  "tokens": 670395,
+  "types": 19041,
   "vocab_size": 3000000,
   "hits_exact": 591672,
   "hits_lowercase": 18,

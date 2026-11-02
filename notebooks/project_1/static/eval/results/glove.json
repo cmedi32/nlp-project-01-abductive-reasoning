@@ -1,0 +1,97 @@
+{
+ "model": "glove-wiki-gigaword-300",
+ "metrics": {
+  "tokens": 670395,
+  "types": 19041,
+  "vocab_size": 400000,
+  "hits_exact": 575426,
+  "hits_lowercase": 93825,
+  "occurrences": 1144,
+  "rate": 0.0017064566412338994,
+  "unique_types": 861,
+  "type_rate": 0.045218213329131875,
+  "empty_sentences": 7
+ },
+ "top_oov": [
+  [
+   "selfie",
+   11
+  ],
+  [
+   "mTurk",
+   8
+  ],
+  [
+   "Zaiden",
+   7
+  ],
+  [
+   "mturk",
+   6
+  ],
+  [
+   "Mturk",
+   6
+  ],
+  [
+   "selfies",
+   6
+  ],
+  [
+   "A+",
+   6
+  ],
+  [
+   "Antonela",
+   5
+  ],
+  [
+   "Fariah",
+   5
+  ],
+  [
+   "dogwhistle",
+   5
+  ],
+  [
+   "becouse",
+   4
+  ],
+  [
+   "Shalil",
+   4
+  ],
+  [
+   "Jacelyn",
+   4
+  ],
+  [
+   "Padfoot",
+   4
+  ],
+  [
+   "Myah",
+   4
+  ],
+  [
+   "saded",
+   4
+  ],
+  [
+   "Kelsea",
+   4
+  ],
+  [
+   "Shaylee",
+   4
+  ],
+  [
+   "Jaiden",
+   4
+  ],
+  [
+   "Marisse",
+   4
+  ]
+ ]
+}

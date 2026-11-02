@@ -1,0 +1,97 @@
+{
+ "model": "fasttext-wiki-news-subwords-300",
+ "metrics": {
+  "tokens": 670395,
+  "types": 19041,
+  "vocab_size": 999999,
+  "hits_exact": 665907,
+  "hits_lowercase": 26,
+  "occurrences": 4462,
+  "rate": 0.006655777563973478,
+  "unique_types": 593,
+  "type_rate": 0.031143322304500815,
+  "empty_sentences": 7
+ },
+ "top_oov": [
+  [
+   "n't",
+   3702
+  ],
+  [
+   "mTurk",
+   8
+  ],
+  [
+   "o'clock",
+   7
+  ],
+  [
+   "Zaiden",
+   7
+  ],
+  [
+   "A+",
+   6
+  ],
+  [
+   "Mturk",
+   6
+  ],
+  [
+   "mturk",
+   6
+  ],
+  [
+   "Antonela",
+   5
+  ],
+  [
+   "Fariah",
+   5
+  ],
+  [
+   "saded",
+   4
+  ],
+  [
+   "BunnBunn",
+   4
+  ],
+  [
+   "Loraline",
+   4
+  ],
+  [
+   "inessentialed",
+   4
+  ],
+  [
+   "Lakyn",
+   4
+  ],
+  [
+   "Tanice",
+   4
+  ],
+  [
+   "rubix",
+   4
+  ],
+  [
+   "Marisse",
+   4
+  ],
+  [
+   "s'mores",
+   4
+  ],
+  [
+   "Shalil",
+   4
+  ],
+  [
+   "Benisha",
+   4
+  ]
+ ]
+}

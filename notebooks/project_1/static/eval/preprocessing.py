@@ -9,5 +9,5 @@ nltk.download("punkt_tab", quiet=True)
 
 
 def preprocess(text):
-    tokens = nltk.word_tokenize(text)a
+    tokens = nltk.word_tokenize(text)
     return [token for token in tokens if any(character.isalnum() for character in token)]
